@@ -1,0 +1,1243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Component Glossary — TAMU Library UX Experimental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --aux-maroon: #500000;
+      --aux-maroon-dark: #3b0000;
+      --aux-maroon-subtle: #f9f2f2;
+      --aux-gray-100: #f5f5f0;
+      --aux-gray-200: #e8e6e0;
+      --aux-gray-400: #9b9890;
+      --aux-gray-600: #5c5a55;
+      --aux-gray-800: #2c2b28;
+      --aux-gray-900: #1c1b18;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 48px;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 16px;
+    }
+
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 16px;
+      color: var(--aux-gray-800);
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      background: var(--aux-maroon);
+      color: #fff;
+      padding: 64px 48px;
+    }
+    .page-header__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .eyebrow {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: var(--space-sm);
+    }
+    .page-header h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: var(--space-md);
+    }
+    .page-header p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.85);
+      max-width: 620px;
+      line-height: 1.6;
+    }
+    .meta-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 13px;
+      color: #fff;
+    }
+
+    /* ── Layout ── */
+    .page-body {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-lg);
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--aux-gray-900);
+      padding-bottom: var(--space-sm);
+      border-bottom: 3px solid var(--aux-maroon);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* ── Quick reference table ── */
+    .quick-ref {
+      margin-bottom: 56px;
+    }
+    .quick-ref-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+    .quick-ref-block {
+      background: var(--aux-gray-100);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+    .quick-ref-block h3 {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--aux-maroon);
+      margin-bottom: var(--space-md);
+    }
+    .quick-ref-row {
+      display: flex;
+      gap: var(--space-md);
+      align-items: baseline;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--aux-gray-200);
+      font-size: 14px;
+    }
+    .quick-ref-row:last-child { border-bottom: none; }
+    .quick-ref-intent {
+      color: var(--aux-gray-600);
+      flex: 1;
+      min-width: 0;
+    }
+    .quick-ref-directive {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--aux-maroon);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Component cards ── */
+    .components-section {
+      margin-bottom: 56px;
+    }
+    .component-card {
+      border: 1px solid var(--aux-gray-200);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-lg);
+      overflow: hidden;
+    }
+    .component-card__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-lg);
+      background: var(--aux-gray-100);
+      border-bottom: 1px solid var(--aux-gray-200);
+    }
+    .component-card__name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--aux-gray-900);
+    }
+    .component-card__directive {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--aux-maroon);
+      background: var(--aux-maroon-subtle);
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .component-card__body {
+      padding: var(--space-lg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+    }
+    .component-card__desc {
+      font-size: 15px;
+      color: var(--aux-gray-800);
+      margin-bottom: var(--space-md);
+      grid-column: 1 / -1;
+    }
+    .component-card__col-label {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--aux-gray-400);
+      margin-bottom: var(--space-sm);
+    }
+    .keyword-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .keyword-list li {
+      font-size: 13px;
+      font-family: 'Work Sans', Arial, sans-serif;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--aux-maroon-subtle);
+      color: var(--aux-maroon);
+    }
+    .avoid-list {
+      list-style: none;
+    }
+    .avoid-list li {
+      font-size: 13px;
+      color: var(--aux-gray-600);
+      padding: 4px 0;
+      padding-left: 18px;
+      position: relative;
+    }
+    .avoid-list li::before {
+      content: '✗';
+      position: absolute;
+      left: 0;
+      color: #991b1b;
+      font-size: 11px;
+      top: 5px;
+    }
+
+    /* ── Variants table ── */
+    .variants-section {
+      grid-column: 1 / -1;
+      margin-top: var(--space-sm);
+    }
+    .variants-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .variants-table th {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--aux-gray-400);
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--aux-gray-200);
+      background: var(--aux-gray-100);
+    }
+    .variants-table td {
+      padding: 10px 12px;
+      vertical-align: top;
+      border-bottom: 1px solid var(--aux-gray-200);
+    }
+    .variants-table tr:last-child td { border-bottom: none; }
+    .variants-table tr:hover td { background: var(--aux-gray-100); }
+    .flag-code {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--aux-maroon);
+      white-space: nowrap;
+    }
+    .flag-default {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 12px;
+      color: var(--aux-gray-400);
+      font-style: italic;
+    }
+    .variant-label {
+      font-weight: 600;
+      color: var(--aux-gray-900);
+    }
+    .variant-desc {
+      color: var(--aux-gray-600);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+    .variant-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .variant-keyword {
+      font-size: 12px;
+      font-family: 'Work Sans', Arial, sans-serif;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--aux-gray-100);
+      color: var(--aux-gray-600);
+      border: 1px solid var(--aux-gray-200);
+    }
+
+    /* Notes */
+    .component-note {
+      grid-column: 1 / -1;
+      background: #fffbf0;
+      border-left: 3px solid #b45309;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--space-sm) var(--space-md);
+      font-size: 13px;
+      color: var(--aux-gray-700, #3a3835);
+      margin-top: var(--space-sm);
+    }
+    .component-note strong {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-weight: 600;
+      color: #b45309;
+      margin-right: 4px;
+    }
+
+    /* ── Background variants reference ── */
+    .bg-section {
+      margin-bottom: 56px;
+    }
+    .bg-swatches {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+    .bg-swatch {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--aux-gray-200);
+    }
+    .bg-swatch__color {
+      height: 56px;
+    }
+    .bg-swatch__info {
+      padding: var(--space-sm) var(--space-md);
+      background: #fff;
+    }
+    .bg-swatch__flag {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--aux-maroon);
+      display: block;
+    }
+    .bg-swatch__label {
+      font-size: 12px;
+      color: var(--aux-gray-600);
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: sticky;
+      top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .sidebar-card {
+      background: var(--aux-gray-100);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+    .sidebar-card h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--aux-gray-900);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 2px solid var(--aux-gray-200);
+    }
+    .nav-list { list-style: none; }
+    .nav-list li {
+      padding: 5px 0;
+      border-bottom: 1px solid var(--aux-gray-200);
+      font-size: 14px;
+    }
+    .nav-list li:last-child { border-bottom: none; }
+    .nav-list a {
+      color: var(--aux-maroon);
+      text-decoration: none;
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .nav-list a:hover { text-decoration: underline; }
+    .nav-list .nav-directive {
+      font-size: 12px;
+      color: var(--aux-gray-400);
+      font-weight: 400;
+      font-family: 'Work Sans', Arial, sans-serif;
+    }
+
+    .link-list { list-style: none; }
+    .link-list li {
+      padding: 6px 0;
+      border-bottom: 1px solid var(--aux-gray-200);
+      font-size: 14px;
+    }
+    .link-list li:last-child { border-bottom: none; }
+    .link-list a {
+      color: var(--aux-maroon);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .link-list a:hover { text-decoration: underline; }
+    .link-list .link-desc {
+      display: block;
+      color: var(--aux-gray-600);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--aux-gray-200);
+      font-size: 14px;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { color: var(--aux-gray-600); }
+    .stat-value {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-weight: 600;
+      color: var(--aux-gray-900);
+    }
+    .stat-value--maroon { color: var(--aux-maroon); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--aux-gray-900);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: var(--space-lg) var(--space-md);
+      font-size: 13px;
+      margin-top: 32px;
+    }
+    footer a { color: rgba(255,255,255,0.8); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .bg-swatches { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .page-header { padding: 48px 24px; }
+      .page-body {
+        grid-template-columns: 1fr;
+        padding: var(--space-xl) var(--space-md);
+        gap: 48px;
+      }
+      .sidebar { position: static; }
+      .quick-ref-grid { grid-template-columns: 1fr; }
+      .component-card__body { grid-template-columns: 1fr; }
+      .component-card__desc { grid-column: auto; }
+      .variants-section { grid-column: auto; }
+      .component-note { grid-column: auto; }
+    }
+    @media (max-width: 600px) {
+      .component-card__header { flex-direction: column; align-items: flex-start; }
+      .bg-swatches { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Page header ── -->
+  <header class="page-header">
+    <div class="page-header__inner">
+      <p class="eyebrow">TAMU Library UX Experimental — Docs</p>
+      <h1>Component Glossary</h1>
+      <p>A keyword reference for the AUX Page Builder. Maps natural-language intent to component directives, variants, and usage rules — so you know exactly what to write in a <code style="background:rgba(255,255,255,0.15); padding:1px 6px; border-radius:3px; font-family:monospace;">.txt</code> source file.</p>
+      <div class="meta-chips">
+        <span class="chip">9 components</span>
+        <span class="chip">AUX v2</span>
+        <span class="chip">Page Builder reference</span>
+        <span class="chip">Updated June 29, 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Body ── -->
+  <div class="page-body">
+    <main>
+
+      <!-- Quick reference -->
+      <section class="quick-ref">
+        <h2 class="section-label">Quick reference</h2>
+        <div class="quick-ref-grid">
+
+          <div class="quick-ref-block">
+            <h3>Page opening</h3>
+            <div class="quick-ref-row">
+              <span class="quick-ref-intent">Home page / marketing landing page</span>
+              <span class="quick-ref-directive">#hero</span>
+            </div>
+            <div class="quick-ref-row">
+              <span class="quick-ref-intent">Interior / department / service page</span>
+              <span class="quick-ref-directive">#page-header</span>
+            </div>
+          </div>
+
+          <div class="quick-ref-block">
+            <h3>Mid-page patterns</h3>
+            <div class="quick-ref-row">
+              <span class="quick-ref-intent">Introduce a section</span>
+              <span class="quick-ref-directive">#section-intro</span>
+            </div>
+            <div class="quick-ref-row">
+              <span class="quick-ref-intent">3–6 parallel items / features</span>
+              <span class="quick-ref-directive">#card-group</span>
+            </div>
+            <div class="quick-ref-row">
+              <span class="quick-ref-intent">Image + text, side by side</span>
+              <span class="quick-ref-directive">#media-feature</span>
+            </div>
+            <div class="quick-ref-row">
+              <span class="quick-ref-intent">Image on the right side</span>
+              <span class="quick-ref-directive">#media-feature --right</span>
+            </div>
+            <div class="quick-ref-row">
+              <span class="quick-ref-intent">Statistics / key numbers</span>
+              <span class="quick-ref-directive">#factoid-collection</span>
+            </div>
+            <div class="quick-ref-row">
+              <span class="quick-ref-intent">FAQ / collapsible items</span>
+              <span class="quick-ref-directive">#accordion</span>
+            </div>
+            <div class="quick-ref-row">
+              <span class="quick-ref-intent">Single spotlight or CTA</span>
+              <span class="quick-ref-directive">#callout</span>
+            </div>
+            <div class="quick-ref-row">
+              <span class="quick-ref-intent">System notice or status</span>
+              <span class="quick-ref-directive">#alert</span>
+            </div>
+            <div class="quick-ref-row">
+              <span class="quick-ref-intent">List of links / navigation</span>
+              <span class="quick-ref-directive">#link-list</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Component cards -->
+      <section class="components-section">
+        <h2 class="section-label">Components</h2>
+
+        <!-- Hero -->
+        <div class="component-card" id="hero">
+          <div class="component-card__header">
+            <span class="component-card__name">Hero</span>
+            <span class="component-card__directive">#hero</span>
+          </div>
+          <div class="component-card__body">
+            <p class="component-card__desc">Full-bleed image hero for home pages and marketing landing pages. Always the first element on the page. Never used alongside <code>#page-header</code>.</p>
+
+            <div>
+              <p class="component-card__col-label">Use for</p>
+              <ul class="keyword-list">
+                <li>home page</li><li>homepage</li><li>landing page</li><li>campaign page</li><li>marketing page</li><li>splash page</li><li>full-bleed image</li><li>big image banner</li><li>opening banner</li><li>site intro</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="component-card__col-label">Avoid when</p>
+              <ul class="avoid-list">
+                <li>Interior or department page — use <code>#page-header</code></li>
+                <li>Page already has a <code>#page-header</code></li>
+                <li>No meaningful image to support the hero</li>
+              </ul>
+            </div>
+
+            <div class="variants-section">
+              <p class="component-card__col-label">Variants</p>
+              <table class="variants-table">
+                <thead>
+                  <tr>
+                    <th>Flag</th>
+                    <th>Label</th>
+                    <th>Description</th>
+                    <th>Trigger keywords</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="flag-default">none</span></td>
+                    <td><span class="variant-label">Default</span></td>
+                    <td><span class="variant-desc">Standard hero layout.</span></td>
+                    <td>—</td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--bold</span></td>
+                    <td><span class="variant-label">Bold</span></td>
+                    <td><span class="variant-desc">Work Sans heading — high-energy, action-oriented.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">bold</span><span class="variant-keyword">strong</span><span class="variant-keyword">impactful</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--elegant</span></td>
+                    <td><span class="variant-label">Elegant</span></td>
+                    <td><span class="variant-desc">Georgia serif heading — editorial, archival, or formal.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">elegant</span><span class="variant-keyword">editorial</span><span class="variant-keyword">refined</span><span class="variant-keyword">serif</span><span class="variant-keyword">formal</span><span class="variant-keyword">classic</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--tall</span></td>
+                    <td><span class="variant-label">Tall</span></td>
+                    <td><span class="variant-desc">Increased vertical height for more dramatic visual impact.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">tall</span><span class="variant-keyword">dramatic</span><span class="variant-keyword">cinematic</span><span class="variant-keyword">full height</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--narrow</span></td>
+                    <td><span class="variant-label">Narrow</span></td>
+                    <td><span class="variant-desc">Reduced height — image is less central to the story.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">narrow</span><span class="variant-keyword">compact</span><span class="variant-keyword">short</span><span class="variant-keyword">minimal</span></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="component-card" id="page-header">
+          <div class="component-card__header">
+            <span class="component-card__name">Page Header</span>
+            <span class="component-card__directive">#page-header</span>
+          </div>
+          <div class="component-card__body">
+            <p class="component-card__desc">Primary page introduction for standard interior pages. Replaces the hero on non-home pages. Supports an optional image and CTA button.</p>
+
+            <div>
+              <p class="component-card__col-label">Use for</p>
+              <ul class="keyword-list">
+                <li>interior page</li><li>department page</li><li>service page</li><li>topic page</li><li>section page</li><li>about page</li><li>standard page intro</li><li>page title and description</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="component-card__col-label">Avoid when</p>
+              <ul class="avoid-list">
+                <li>Home page or marketing landing — use <code>#hero</code></li>
+                <li>Page already has a <code>#hero</code></li>
+                <li>Mid-page section intro — use <code>#section-intro</code></li>
+              </ul>
+            </div>
+
+            <div class="variants-section">
+              <p class="component-card__col-label">Variants</p>
+              <table class="variants-table">
+                <thead>
+                  <tr><th>Flag</th><th>Label</th><th>Description</th><th>Trigger keywords</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="flag-default">none</span></td>
+                    <td><span class="variant-label">Default (white)</span></td>
+                    <td><span class="variant-desc">Standard white background.</span></td>
+                    <td>—</td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--gray-100</span></td>
+                    <td><span class="variant-label">Light gray</span></td>
+                    <td><span class="variant-desc">Subtle off-white background.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">gray</span><span class="variant-keyword">light gray</span><span class="variant-keyword">off-white</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--primary-brand</span></td>
+                    <td><span class="variant-label">Maroon</span></td>
+                    <td><span class="variant-desc">Maroon background, white text. High-visibility, brand-forward.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">maroon</span><span class="variant-keyword">brand</span><span class="variant-keyword">dark</span><span class="variant-keyword">aggie maroon</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--gray-900</span></td>
+                    <td><span class="variant-label">Charcoal</span></td>
+                    <td><span class="variant-desc">Dark charcoal background, white text.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">dark</span><span class="variant-keyword">charcoal</span><span class="variant-keyword">night</span></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Intro -->
+        <div class="component-card" id="section-intro">
+          <div class="component-card__header">
+            <span class="component-card__name">Section Intro</span>
+            <span class="component-card__directive">#section-intro</span>
+          </div>
+          <div class="component-card__body">
+            <p class="component-card__desc">A lightweight heading + description used to introduce a content section mid-page. Supports background variants for on-dark contexts.</p>
+
+            <div>
+              <p class="component-card__col-label">Use for</p>
+              <ul class="keyword-list">
+                <li>section heading</li><li>section title</li><li>group intro</li><li>before cards</li><li>before accordion</li><li>before factoids</li><li>mid-page intro</li><li>content section header</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="component-card__col-label">Avoid when</p>
+              <ul class="avoid-list">
+                <li>Full page-level intro — use <code>#page-header</code> or <code>#hero</code></li>
+                <li>Needs a CTA button — use <code>#callout</code> instead</li>
+              </ul>
+            </div>
+
+            <div class="variants-section">
+              <p class="component-card__col-label">Background variants</p>
+              <table class="variants-table">
+                <thead>
+                  <tr><th>Flag</th><th>Background</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><span class="flag-default">none</span></td><td><span class="variant-label">White (default)</span></td></tr>
+                  <tr><td><span class="flag-code">--gray-100</span></td><td><span class="variant-label">Light gray <span class="variant-desc">— #f5f5f0</span></span></td></tr>
+                  <tr><td><span class="flag-code">--maroon</span></td><td><span class="variant-label">Maroon (on dark) <span class="variant-desc">— #500000, white text</span></span></td></tr>
+                  <tr><td><span class="flag-code">--gray-900</span></td><td><span class="variant-label">Charcoal (on dark) <span class="variant-desc">— #1c1b18, white text</span></span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Group -->
+        <div class="component-card" id="card-group">
+          <div class="component-card__header">
+            <span class="component-card__name">Card Group</span>
+            <span class="component-card__directive">#card-group</span>
+          </div>
+          <div class="component-card__body">
+            <p class="component-card__desc">A responsive grid of 3–6 equal-weight cards, each with heading, body text, optional icon, and link. Columns auto-size based on card count via <code>data-cards</code>.</p>
+
+            <div>
+              <p class="component-card__col-label">Use for</p>
+              <ul class="keyword-list">
+                <li>cards</li><li>card grid</li><li>features</li><li>services</li><li>resources</li><li>parallel items</li><li>topic grid</li><li>collection overview</li><li>3 items</li><li>4 items</li><li>5 items</li><li>6 items</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="component-card__col-label">Avoid when</p>
+              <ul class="avoid-list">
+                <li>Fewer than 3 items — use <code>#callout</code></li>
+                <li>Items have clear hierarchy — use <code>#link-list</code></li>
+                <li>Only 1–2 items</li>
+              </ul>
+            </div>
+
+            <div class="variants-section">
+              <p class="component-card__col-label">Background variants</p>
+              <table class="variants-table">
+                <thead>
+                  <tr><th>Flag</th><th>Background</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><span class="flag-default">none</span></td><td><span class="variant-label">White (default)</span></td></tr>
+                  <tr><td><span class="flag-code">--gray-100</span></td><td><span class="variant-label">Light gray</span></td></tr>
+                  <tr><td><span class="flag-code">--maroon</span></td><td><span class="variant-label">Maroon (on dark)</span></td></tr>
+                  <tr><td><span class="flag-code">--gray-900</span></td><td><span class="variant-label">Charcoal (on dark)</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="component-note">
+              <strong>Syntax note:</strong> Use <code>## Heading</code> per card. Add <code>icon: name</code> and <code>link: url</code> below each heading as needed.
+            </div>
+          </div>
+        </div>
+
+        <!-- Media Feature -->
+        <div class="component-card" id="media-feature">
+          <div class="component-card__header">
+            <span class="component-card__name">Media Feature</span>
+            <span class="component-card__directive">#media-feature</span>
+          </div>
+          <div class="component-card__body">
+            <p class="component-card__desc">Side-by-side image and text layout. Image on the left by default; add <code>--right</code> to flip. Alternate orientations when using multiple media features in a row.</p>
+
+            <div>
+              <p class="component-card__col-label">Use for</p>
+              <ul class="keyword-list">
+                <li>image with text</li><li>split layout</li><li>feature section</li><li>photo and description</li><li>image left</li><li>image right</li><li>side by side</li><li>topic spotlight</li><li>alternating sections</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="component-card__col-label">Avoid when</p>
+              <ul class="avoid-list">
+                <li>Primary hero needed — use <code>#hero</code></li>
+                <li>Standard interior page intro — use <code>#page-header</code></li>
+                <li>No image available</li>
+              </ul>
+            </div>
+
+            <div class="variants-section">
+              <p class="component-card__col-label">Variants</p>
+              <table class="variants-table">
+                <thead>
+                  <tr><th>Flag</th><th>Label</th><th>Description</th><th>Trigger keywords</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="flag-default">none</span></td>
+                    <td><span class="variant-label">Default</span></td>
+                    <td><span class="variant-desc">Image left, white background.</span></td>
+                    <td>—</td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--right</span></td>
+                    <td><span class="variant-label">Image right</span></td>
+                    <td><span class="variant-desc">Flips image to the right. Use to alternate visual rhythm.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">image right</span><span class="variant-keyword">flip</span><span class="variant-keyword">reverse</span><span class="variant-keyword">alternate</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--bold</span></td>
+                    <td><span class="variant-label">Bold heading</span></td>
+                    <td><span class="variant-desc">Work Sans heading for a stronger typographic feel.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">bold</span><span class="variant-keyword">strong</span><span class="variant-keyword">heavy</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--elegant</span></td>
+                    <td><span class="variant-label">Elegant heading</span></td>
+                    <td><span class="variant-desc">Georgia serif for editorial or archival content.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">elegant</span><span class="variant-keyword">editorial</span><span class="variant-keyword">serif</span><span class="variant-keyword">archival</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--gray-100</span></td>
+                    <td><span class="variant-label">Light gray background</span></td>
+                    <td>—</td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">gray</span><span class="variant-keyword">light gray</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--maroon</span></td>
+                    <td><span class="variant-label">Maroon background</span></td>
+                    <td>—</td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">maroon</span><span class="variant-keyword">dark</span><span class="variant-keyword">brand</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--gray-900</span></td>
+                    <td><span class="variant-label">Charcoal background</span></td>
+                    <td>—</td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">charcoal</span><span class="variant-keyword">dark</span></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="component-note">
+              <strong>Combining flags:</strong> <code>#media-feature --right --gray-100</code> is valid. Always use one <code>## Heading</code> item for the content text.
+            </div>
+          </div>
+        </div>
+
+        <!-- Factoid Collection -->
+        <div class="component-card" id="factoid-collection">
+          <div class="component-card__header">
+            <span class="component-card__name">Factoid Collection</span>
+            <span class="component-card__directive">#factoid-collection</span>
+          </div>
+          <div class="component-card__body">
+            <p class="component-card__desc">A grid of statistics or key numbers with labels. Use to create visual impact with quantitative data. Supports an optional superhead and title above the grid.</p>
+
+            <div>
+              <p class="component-card__col-label">Use for</p>
+              <ul class="keyword-list">
+                <li>statistics</li><li>stats</li><li>numbers</li><li>data points</li><li>key figures</li><li>by the numbers</li><li>impact numbers</li><li>annual report</li><li>metrics</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="component-card__col-label">Avoid when</p>
+              <ul class="avoid-list">
+                <li>Fewer than 3 stats — use inline body copy</li>
+                <li>Numbers need detailed explanation — use <code>#card-group</code></li>
+              </ul>
+            </div>
+
+            <div class="variants-section">
+              <p class="component-card__col-label">Background variants</p>
+              <table class="variants-table">
+                <thead>
+                  <tr><th>Flag</th><th>Background</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><span class="flag-default">none</span></td><td><span class="variant-label">White (default)</span></td></tr>
+                  <tr><td><span class="flag-code">--gray-100</span></td><td><span class="variant-label">Light gray</span></td></tr>
+                  <tr><td><span class="flag-code">--maroon</span></td><td><span class="variant-label">Maroon (on dark)</span></td></tr>
+                  <tr><td><span class="flag-code">--gray-900</span></td><td><span class="variant-label">Charcoal (on dark)</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="component-note">
+              <strong>Syntax:</strong> <code>stat: value | label</code> per item. Example: <code>stat: 4.5 million | Physical volumes</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion -->
+        <div class="component-card" id="accordion">
+          <div class="component-card__header">
+            <span class="component-card__name">Accordion</span>
+            <span class="component-card__directive">#accordion</span>
+          </div>
+          <div class="component-card__body">
+            <p class="component-card__desc">Collapsible FAQ or Q&amp;A list rendered with native <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> elements. Each <code>## Heading</code> becomes one expandable item.</p>
+
+            <div>
+              <p class="component-card__col-label">Use for</p>
+              <ul class="keyword-list">
+                <li>FAQ</li><li>frequently asked questions</li><li>Q&amp;A</li><li>collapsible</li><li>expandable</li><li>show/hide</li><li>toggle</li><li>help topics</li><li>how-to list</li><li>policies</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="component-card__col-label">Avoid when</p>
+              <ul class="avoid-list">
+                <li>Content should always be visible — use body copy or cards</li>
+                <li>Fewer than 2 items — use a <code>#callout</code></li>
+              </ul>
+            </div>
+
+            <div class="variants-section">
+              <p class="component-card__col-label">Background variants</p>
+              <table class="variants-table">
+                <thead>
+                  <tr><th>Flag</th><th>Background</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><span class="flag-default">none</span></td><td><span class="variant-label">White (default)</span></td></tr>
+                  <tr><td><span class="flag-code">--gray-100</span></td><td><span class="variant-label">Light gray</span></td></tr>
+                  <tr><td><span class="flag-code">--maroon</span></td><td><span class="variant-label">Maroon</span></td></tr>
+                  <tr><td><span class="flag-code">--gray-900</span></td><td><span class="variant-label">Charcoal</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Callout -->
+        <div class="component-card" id="callout">
+          <div class="component-card__header">
+            <span class="component-card__name">Callout</span>
+            <span class="component-card__directive">#callout</span>
+          </div>
+          <div class="component-card__body">
+            <p class="component-card__desc">A visually highlighted block spotlighting a single fact, feature, or action. Use to break up sections and draw attention to one key piece of content.</p>
+
+            <div>
+              <p class="component-card__col-label">Use for</p>
+              <ul class="keyword-list">
+                <li>callout</li><li>highlight</li><li>spotlight</li><li>featured content</li><li>call to action</li><li>promotional block</li><li>visual break</li><li>fun fact</li><li>did you know</li><li>program highlight</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="component-card__col-label">Avoid when</p>
+              <ul class="avoid-list">
+                <li>System message or status — use <code>#alert</code></li>
+                <li>Multiple items — use <code>#card-group</code></li>
+                <li>Permanent editorial content — use body copy or <code>#media-feature</code></li>
+              </ul>
+            </div>
+
+            <div class="variants-section">
+              <p class="component-card__col-label">Variants</p>
+              <table class="variants-table">
+                <thead>
+                  <tr><th>Flag</th><th>Label</th><th>Description</th><th>Trigger keywords</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="flag-default">none</span></td>
+                    <td><span class="variant-label">Default (white)</span></td>
+                    <td>—</td>
+                    <td>—</td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--on-dark</span></td>
+                    <td><span class="variant-label">On-dark style</span></td>
+                    <td><span class="variant-desc">Inverts text colors for use on a dark background section.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">dark</span><span class="variant-keyword">on dark</span><span class="variant-keyword">inverted</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--gray-100</span></td>
+                    <td><span class="variant-label">Light gray background</span></td>
+                    <td>—</td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">gray</span><span class="variant-keyword">light gray</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--maroon</span></td>
+                    <td><span class="variant-label">Maroon background</span></td>
+                    <td>—</td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">maroon</span><span class="variant-keyword">dark</span><span class="variant-keyword">brand</span></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alert -->
+        <div class="component-card" id="alert">
+          <div class="component-card__header">
+            <span class="component-card__name">Alert</span>
+            <span class="component-card__directive">#alert</span>
+          </div>
+          <div class="component-card__body">
+            <p class="component-card__desc">A contextual banner for time-sensitive system or status messages. The severity variant is required — choose one of the four type flags below.</p>
+
+            <div>
+              <p class="component-card__col-label">Use for</p>
+              <ul class="keyword-list">
+                <li>alert</li><li>notice</li><li>warning</li><li>error</li><li>system message</li><li>status update</li><li>closure notice</li><li>hours change</li><li>service disruption</li><li>time-sensitive</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="component-card__col-label">Avoid when</p>
+              <ul class="avoid-list">
+                <li>Editorial or promotional content — use <code>#callout</code></li>
+                <li>Permanent page content — use body copy or <code>#callout</code></li>
+              </ul>
+            </div>
+
+            <div class="variants-section">
+              <p class="component-card__col-label">Severity variants (required)</p>
+              <table class="variants-table">
+                <thead>
+                  <tr><th>Flag</th><th>Label</th><th>Description</th><th>Trigger keywords</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="flag-code">--info</span></td>
+                    <td><span class="variant-label">Info (blue)</span></td>
+                    <td><span class="variant-desc">General informational message. Default when no severity applies.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">info</span><span class="variant-keyword">notice</span><span class="variant-keyword">fyi</span><span class="variant-keyword">blue</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--success</span></td>
+                    <td><span class="variant-label">Success (green)</span></td>
+                    <td><span class="variant-desc">Positive confirmation or completed action.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">success</span><span class="variant-keyword">confirmed</span><span class="variant-keyword">complete</span><span class="variant-keyword">green</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--warning</span></td>
+                    <td><span class="variant-label">Warning (amber)</span></td>
+                    <td><span class="variant-desc">Non-critical caution or advisory.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">warning</span><span class="variant-keyword">caution</span><span class="variant-keyword">attention</span><span class="variant-keyword">amber</span></div></td>
+                  </tr>
+                  <tr>
+                    <td><span class="flag-code">--error</span></td>
+                    <td><span class="variant-label">Error (red)</span></td>
+                    <td><span class="variant-desc">Critical problem or failure state.</span></td>
+                    <td><div class="variant-keywords"><span class="variant-keyword">error</span><span class="variant-keyword">failure</span><span class="variant-keyword">critical</span><span class="variant-keyword">urgent</span><span class="variant-keyword">red</span></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="component-note">
+              <strong>Note:</strong> Avoid rendering the alert icon on mobile without testing — the SVG sprite can render oversized if it hasn't loaded. When in doubt, omit the icon.
+            </div>
+          </div>
+        </div>
+
+        <!-- Link List -->
+        <div class="component-card" id="link-list">
+          <div class="component-card__header">
+            <span class="component-card__name">Link List</span>
+            <span class="component-card__directive">#link-list</span>
+          </div>
+          <div class="component-card__body">
+            <p class="component-card__desc">A vertical list of labeled links with optional descriptions. Use when items have a clear hierarchy or are primarily navigational rather than equal-weight content.</p>
+
+            <div>
+              <p class="component-card__col-label">Use for</p>
+              <ul class="keyword-list">
+                <li>links</li><li>link list</li><li>navigation list</li><li>resource list</li><li>directory</li><li>index</li><li>related links</li><li>quick links</li><li>hierarchical items</li><li>table of contents</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="component-card__col-label">Avoid when</p>
+              <ul class="avoid-list">
+                <li>Equal-weight items with images — use <code>#card-group</code></li>
+                <li>Expandable items — use <code>#accordion</code></li>
+              </ul>
+            </div>
+
+            <div class="variants-section">
+              <p class="component-card__col-label">Background variants</p>
+              <table class="variants-table">
+                <thead>
+                  <tr><th>Flag</th><th>Background</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><span class="flag-default">none</span></td><td><span class="variant-label">White (default)</span></td></tr>
+                  <tr><td><span class="flag-code">--gray-100</span></td><td><span class="variant-label">Light gray</span></td></tr>
+                  <tr><td><span class="flag-code">--maroon</span></td><td><span class="variant-label">Maroon</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="component-note">
+              <strong>Syntax:</strong> Each <code>## Heading</code> is a link label. Add <code>link: url</code> below each item. Optional body text becomes the item description.
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Background variants -->
+      <section class="bg-section">
+        <h2 class="section-label">Shared background variants</h2>
+        <p style="margin-bottom: var(--space-lg); color: var(--aux-gray-600); font-size: 15px;">These four background flags are available on most components. Maroon and charcoal are "on-dark" contexts — the builder automatically applies inverted text colors.</p>
+        <div class="bg-swatches">
+          <div class="bg-swatch">
+            <div class="bg-swatch__color" style="background:#ffffff; border-bottom: 1px solid var(--aux-gray-200);"></div>
+            <div class="bg-swatch__info">
+              <span class="bg-swatch__flag">Default</span>
+              <span class="bg-swatch__label">White — #ffffff</span>
+            </div>
+          </div>
+          <div class="bg-swatch">
+            <div class="bg-swatch__color" style="background:#f5f5f0;"></div>
+            <div class="bg-swatch__info">
+              <span class="bg-swatch__flag">--gray-100</span>
+              <span class="bg-swatch__label">Light gray — #f5f5f0</span>
+            </div>
+          </div>
+          <div class="bg-swatch">
+            <div class="bg-swatch__color" style="background:#500000;"></div>
+            <div class="bg-swatch__info">
+              <span class="bg-swatch__flag">--maroon</span>
+              <span class="bg-swatch__label">Maroon — #500000</span>
+            </div>
+          </div>
+          <div class="bg-swatch">
+            <div class="bg-swatch__color" style="background:#1c1b18;"></div>
+            <div class="bg-swatch__info">
+              <span class="bg-swatch__flag">--gray-900</span>
+              <span class="bg-swatch__label">Charcoal — #1c1b18</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+
+      <div class="sidebar-card">
+        <h2>Components</h2>
+        <ul class="nav-list">
+          <li><a href="#hero">Hero <span class="nav-directive">#hero</span></a></li>
+          <li><a href="#page-header">Page Header <span class="nav-directive">#page-header</span></a></li>
+          <li><a href="#section-intro">Section Intro <span class="nav-directive">#section-intro</span></a></li>
+          <li><a href="#card-group">Card Group <span class="nav-directive">#card-group</span></a></li>
+          <li><a href="#media-feature">Media Feature <span class="nav-directive">#media-feature</span></a></li>
+          <li><a href="#factoid-collection">Factoid Collection <span class="nav-directive">#factoid-collection</span></a></li>
+          <li><a href="#accordion">Accordion <span class="nav-directive">#accordion</span></a></li>
+          <li><a href="#callout">Callout <span class="nav-directive">#callout</span></a></li>
+          <li><a href="#alert">Alert <span class="nav-directive">#alert</span></a></li>
+          <li><a href="#link-list">Link List <span class="nav-directive">#link-list</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h2>At a glance</h2>
+        <div class="stat-row">
+          <span class="stat-label">Components</span>
+          <span class="stat-value stat-value--maroon">9</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Design system</span>
+          <span class="stat-value">AUX v2</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Updated</span>
+          <span class="stat-value">June 29, 2026</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Maintainer</span>
+          <span class="stat-value">Tina Phillips</span>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h2>Resources</h2>
+        <ul class="link-list">
+          <li>
+            <a href="../project-summary.html">Project summary</a>
+            <span class="link-desc">Overview of this experimental repository.</span>
+          </li>
+          <li>
+            <a href="component-usage-rules.md">Component usage rules</a>
+            <span class="link-desc">Detailed markdown reference for each component.</span>
+          </li>
+          <li>
+            <a href="component-glossary.json">Glossary JSON source</a>
+            <span class="link-desc">Machine-readable keyword glossary for tooling.</span>
+          </li>
+          <li>
+            <a href="https://aggieux.tamu.edu" target="_blank" rel="noopener">AUX Storybook ↗</a>
+            <span class="link-desc">Live component library and documentation.</span>
+          </li>
+        </ul>
+      </div>
+
+    </aside>
+  </div>
+
+  <footer>
+    <p>TAMU Library UX Experimental &mdash; Texas A&amp;M University &mdash; <a href="mailto:tina@artjynx.com">tina@artjynx.com</a></p>
+  </footer>
+
+</body>
+</html>
