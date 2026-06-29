@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Summary — TAMU Library UX Experimental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&family=Work+Sans:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --aux-maroon: #500000;
+      --aux-maroon-dark: #3b0000;
+      --aux-maroon-subtle: #f9f2f2;
+      --aux-gray-100: #f5f5f0;
+      --aux-gray-200: #e8e6e0;
+      --aux-gray-400: #9b9890;
+      --aux-gray-600: #5c5a55;
+      --aux-gray-800: #2c2b28;
+      --aux-gray-900: #1c1b18;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 48px;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 16px;
+    }
+
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 16px;
+      color: var(--aux-gray-800);
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      background: var(--aux-maroon);
+      color: #fff;
+      padding: 64px 48px;
+    }
+    .page-header__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .eyebrow {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: var(--space-sm);
+    }
+    .page-header h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: var(--space-md);
+    }
+    .page-header p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.85);
+      max-width: 640px;
+    }
+    .meta-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 13px;
+      color: #fff;
+    }
+
+    /* ── Main layout ── */
+    .page-body {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-lg);
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* ── Section headings ── */
+    .section-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--aux-gray-900);
+      padding-bottom: var(--space-sm);
+      border-bottom: 3px solid var(--aux-maroon);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* ── About section ── */
+    .about-section {
+      margin-bottom: 56px;
+    }
+    .about-section p {
+      color: var(--aux-gray-800);
+      margin-bottom: var(--space-md);
+      max-width: 68ch;
+    }
+
+    /* ── Goals grid ── */
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: 56px;
+    }
+    .goal-card {
+      background: var(--aux-gray-100);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      border-left: 4px solid var(--aux-maroon);
+    }
+    .goal-card h3 {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--aux-gray-900);
+      margin-bottom: var(--space-xs);
+    }
+    .goal-card p {
+      font-size: 14px;
+      color: var(--aux-gray-600);
+      line-height: 1.5;
+    }
+
+    /* ── Timeline ── */
+    .timeline-section {
+      margin-bottom: 56px;
+    }
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      bottom: 0;
+      width: 2px;
+      background: var(--aux-gray-200);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 36px;
+    }
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -28px;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--aux-maroon);
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 2px var(--aux-maroon);
+    }
+    .timeline-dot--today {
+      background: #fff;
+      box-shadow: 0 0 0 2px var(--aux-maroon);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 2px var(--aux-maroon); }
+      50% { box-shadow: 0 0 0 5px rgba(80,0,0,0.2); }
+    }
+    .timeline-date {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--aux-maroon);
+      margin-bottom: 4px;
+    }
+    .timeline-title {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--aux-gray-900);
+      margin-bottom: 4px;
+    }
+    .timeline-body {
+      font-size: 14px;
+      color: var(--aux-gray-600);
+      line-height: 1.55;
+      max-width: 56ch;
+    }
+    .timeline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .tag {
+      font-size: 12px;
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-weight: 500;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: var(--aux-maroon-subtle);
+      color: var(--aux-maroon);
+    }
+    .tag--init {
+      background: #eef4ee;
+      color: #2d6a4f;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: sticky;
+      top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .sidebar-card {
+      background: var(--aux-gray-100);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+    .sidebar-card h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--aux-gray-900);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 2px solid var(--aux-gray-200);
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--aux-gray-200);
+      font-size: 14px;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { color: var(--aux-gray-600); }
+    .stat-value {
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-weight: 600;
+      color: var(--aux-gray-900);
+    }
+    .stat-value--maroon { color: var(--aux-maroon); }
+
+    .link-list { list-style: none; }
+    .link-list li {
+      padding: 6px 0;
+      border-bottom: 1px solid var(--aux-gray-200);
+      font-size: 14px;
+    }
+    .link-list li:last-child { border-bottom: none; }
+    .link-list a {
+      color: var(--aux-maroon);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .link-list a:hover { text-decoration: underline; }
+    .link-list .link-desc {
+      display: block;
+      color: var(--aux-gray-600);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-family: 'Work Sans', Arial, sans-serif;
+      font-weight: 600;
+    }
+    .status-badge--active {
+      background: #eef4ee;
+      color: #2d6a4f;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--aux-gray-900);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: var(--space-lg) var(--space-md);
+      font-size: 13px;
+      margin-top: 32px;
+    }
+    footer a { color: rgba(255,255,255,0.8); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-header { padding: 48px 24px; }
+      .page-body {
+        grid-template-columns: 1fr;
+        padding: var(--space-xl) var(--space-md);
+        gap: 48px;
+      }
+      .sidebar { position: static; }
+      .goals-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .goals-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Page header ── -->
+  <header class="page-header">
+    <div class="page-header__inner">
+      <p class="eyebrow">Texas A&amp;M University Libraries</p>
+      <h1>TAMU Library UX<br>Experimental</h1>
+      <p>A sandbox for UX research, design explorations, and component prototypes for TAMU Libraries — built on the Aggie UX design system.</p>
+      <div class="meta-chips">
+        <span class="chip">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" fill="none"/><polyline points="8,4 8,8 11,10" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          Started June 29, 2026
+        </span>
+        <span class="chip">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 12.6A5.6 5.6 0 1 1 8 2.4a5.6 5.6 0 0 1 0 11.2z" opacity=".4"/><circle cx="8" cy="8" r="2"/></svg>
+          Active
+        </span>
+        <span class="chip">AUX Design System</span>
+        <span class="chip">Maintainer: Tina Phillips</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Body ── -->
+  <div class="page-body">
+    <main>
+
+      <!-- About -->
+      <section class="about-section">
+        <h2 class="section-label">About this project</h2>
+        <p>This repository is an experimental workspace for UX research and interface design work supporting Texas A&amp;M University Libraries. It serves as a controlled environment for testing ideas, validating design system component usage, and building shareable prototypes before they reach production.</p>
+        <p>All work here uses the <strong>Aggie UX (AUX)</strong> design system — the university-wide component library maintained by the Division of Marketing &amp; Communications — to ensure that any concepts developed here are compatible with TAMU's design standards and can be handed off cleanly.</p>
+      </section>
+
+      <!-- Goals -->
+      <section style="margin-bottom: 56px;">
+        <h2 class="section-label">Project goals</h2>
+        <div class="goals-grid">
+          <div class="goal-card">
+            <h3>Prototype freely</h3>
+            <p>Build and iterate quickly without the constraints of a production codebase.</p>
+          </div>
+          <div class="goal-card">
+            <h3>Validate AUX usage</h3>
+            <p>Document correct component usage patterns and surface edge cases in the design system.</p>
+          </div>
+          <div class="goal-card">
+            <h3>Explore content UX</h3>
+            <p>Test how different content types — collections, research guides, exhibits — work within AUX layouts.</p>
+          </div>
+          <div class="goal-card">
+            <h3>Shareable artifacts</h3>
+            <p>Produce demo pages and documentation that can be shared with stakeholders and collaborators.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Timeline -->
+      <section class="timeline-section">
+        <h2 class="section-label">Progress timeline</h2>
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="timeline-dot timeline-dot--today"></div>
+            <p class="timeline-date">June 29, 2026 — Today</p>
+            <p class="timeline-title">Reorganized experiments into structured folder</p>
+            <p class="timeline-body">Moved the monarch butterfly prototype into an <code>experiments/</code> directory to establish a scalable folder structure for future prototypes. Each experiment now lives in its own named subdirectory.</p>
+            <div class="timeline-tags">
+              <span class="tag">Project structure</span>
+              <span class="tag">Housekeeping</span>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <p class="timeline-date">June 29, 2026</p>
+            <p class="timeline-title">Published component usage rules documentation</p>
+            <p class="timeline-body">Added <code>docs/component-usage-rules.md</code> — a practical guide covering when (and when not) to use each AUX component: Page Header, Hero, Section Intro, Callout, Alert, Factoid Collection, Card Group, and Media Feature. Includes variants, notes, and common pitfalls.</p>
+            <div class="timeline-tags">
+              <span class="tag">Documentation</span>
+              <span class="tag">AUX design system</span>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <p class="timeline-date">June 29, 2026</p>
+            <p class="timeline-title">Monarch butterfly demo page</p>
+            <p class="timeline-body">Built a full AUX prototype page on the monarch butterfly — a content-rich topic that exercises the full component stack: hero, heading groups, factoid collection, card group, media feature, accordion, alert, and link list. Uses real Unsplash photography and live AUX v2 stylesheet.</p>
+            <div class="timeline-tags">
+              <span class="tag">Prototype</span>
+              <span class="tag">AUX components</span>
+              <span class="tag">Content UX</span>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot timeline-dot" style="background:#2d6a4f; box-shadow: 0 0 0 2px #2d6a4f;"></div>
+            <p class="timeline-date">June 29, 2026 — Kickoff</p>
+            <p class="timeline-title">Project initialized</p>
+            <p class="timeline-body">Repository created with README, <code>.gitignore</code>, and project scaffolding. Established the experimental nature of the project and its relationship to the AUX design system and TAMU Libraries.</p>
+            <div class="timeline-tags">
+              <span class="tag tag--init">Project init</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+
+      <div class="sidebar-card">
+        <h2>At a glance</h2>
+        <div class="stat-row">
+          <span class="stat-label">Status</span>
+          <span class="status-badge status-badge--active">Active</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Started</span>
+          <span class="stat-value">June 29, 2026</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Maintainer</span>
+          <span class="stat-value">Tina Phillips</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Commits</span>
+          <span class="stat-value stat-value--maroon">4</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Experiments</span>
+          <span class="stat-value stat-value--maroon">1</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Design system</span>
+          <span class="stat-value">AUX v2</span>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h2>Experiments</h2>
+        <ul class="link-list">
+          <li>
+            <a href="experiments/monarch-butterfly/index.html">Monarch butterfly</a>
+            <span class="link-desc">Full AUX page prototype — hero, cards, media feature, accordion, and more.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h2>Resources</h2>
+        <ul class="link-list">
+          <li>
+            <a href="docs/component-usage-rules.md">Component usage rules</a>
+            <span class="link-desc">When (and when not) to use each AUX component.</span>
+          </li>
+          <li>
+            <a href="https://aggieux.tamu.edu" target="_blank" rel="noopener">AUX Storybook ↗</a>
+            <span class="link-desc">Live component library and documentation.</span>
+          </li>
+          <li>
+            <a href="https://brandguide.tamu.edu/web/aggie-ux" target="_blank" rel="noopener">Brand guide ↗</a>
+            <span class="link-desc">Official TAMU design system brand guidelines.</span>
+          </li>
+        </ul>
+      </div>
+
+    </aside>
+  </div>
+
+  <footer>
+    <p>TAMU Library UX Experimental &mdash; Texas A&amp;M University &mdash; <a href="mailto:tina@artjynx.com">tina@artjynx.com</a></p>
+  </footer>
+
+</body>
+</html>
