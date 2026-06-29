@@ -1,0 +1,65 @@
+page-title: Research Collections — TAMU Libraries
+site-name: TAMU Libraries
+
+#hero
+superhead: Texas A&M University Libraries
+# Research Collections
+Explore our world-class collections spanning rare books, digital archives, maps, and specialized research materials.
+image: https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1400&q=80
+alt: Rows of library shelves filled with books
+cta: Browse collections | #collections
+
+#factoid-collection
+stat: 4.5 million | Physical volumes
+stat: 500,000+ | Digital resources
+stat: 1876 | Year founded
+stat: 12 | Branch libraries
+
+#section-intro
+## What we collect
+From rare manuscripts to born-digital data, our collections support research across every discipline at Texas A&M.
+
+#card-group
+## Rare Books & Manuscripts
+Unique primary sources including medieval manuscripts, early printed books, and Texas history materials dating to the 1500s.
+link: #rare-books
+
+## Digital Archives
+Digitized collections, oral histories, photographs, and university records — all freely accessible online.
+link: #digital
+
+## Maps & GIS
+One of the largest map collections in the Southwest, with over 250,000 maps and full GIS support services.
+link: #maps
+
+## Data & Reproducibility
+Support for research data management, open access publishing, and computational reproducibility.
+link: #data
+
+#media-feature --right --gray-100
+image: https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=900&q=80
+alt: Researcher examining an old document
+## Rare Books & Special Collections
+Our Special Collections houses over 100,000 rare books and manuscripts, including a Gutenberg Bible leaf and one of the finest collections of Texana in the world. Materials are available for research by appointment.
+cta: Schedule a visit | #visit
+
+#accordion
+## How do I access Special Collections?
+Special Collections is open to all researchers by appointment. Contact our reading room staff to schedule a visit and discuss your research needs in advance.
+
+## Can I digitize materials myself?
+Researchers may use personal cameras or phones to photograph non-restricted materials at no charge. High-resolution scanning services are also available through our digital lab.
+
+## Are materials available online?
+Many collections have been digitized and are available through our digital repository. Search our finding aids to discover what's available before your visit.
+
+## Who can use the collections?
+Our collections are open to any researcher — TAMU students, faculty, and the general public alike.
+
+#callout
+## Need research help?
+Our subject librarians are available for one-on-one consultations to help you find the right sources for your project.
+cta: Request a consultation | #consult
+
+#alert --info
+Our Evans Library main reading room will be closed for renovation June 30 – August 15. All services remain available at branch locations.
